@@ -5,8 +5,9 @@ Repositório do grupo de trabalho de Bases de dados 2015/2016
 
 	Desenvolvimento de uma base de dados para gestão de uma biblioteca
 
+## Esquemas elaborados até ao momento ##
 
-
+[Esquemas](https://github.com/b-p3r/BD-1516/wiki)
 
 ## Contactos ##
 
@@ -24,7 +25,6 @@ Repositório do grupo de trabalho de Bases de dados 2015/2016
 | Nome   UC       | Fase       | Data Entrega |
 |-----------------|------------|--------------|
 | BD              |            | //           |
-
 
 
 
