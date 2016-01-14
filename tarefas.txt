@@ -40,4 +40,7 @@
 5. Definição das vistas dos utilizadores e regras de acesso.
 
 
-O relatório final deverá incluir o relatório que entregaram anteriormente para a primeira parte (já com as melhorias que realizaram incluídas)  e o que agora vão desenvolver - um único documento, organizado convenientemente. Por favor, tenham em atenção os aspetos de redação e correção da escrita que desenvolverem. 
+> Relatório final
+1. Incluir o relatório da primeira parte (Melhorado) 
+2. Incluir partes a tratar agora
+NOTA: aspetos de redação e correção da escrita.
