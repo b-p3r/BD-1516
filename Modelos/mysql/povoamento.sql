@@ -88,6 +88,12 @@ INSERT INTO utilizador
     (),
     ();
 
+-- TODO ACRESCENTAR AO DICIONARIO DE DADOS E VER O QUE METER AQUI
+INSERT INTO colecao
+    ()
+    VALUES
+    (),
+    ();
 
 	
     

@@ -1,0 +1,74 @@
+Logico
+
+Este capitulo trata da derivação do modelo lógico a partir do modelo conceptual encontrado no capitulo anterior. Neste capitulo vão ser explicados todos os passos que levaram à obtenção do modelo lógico através desta derivação.
+
+
+Derivação dos Relacionamentos
+
+	Derivação do Modelo para Obtenção de Tabelas
+
+
+	Todas as entidades identificadas no modelo conceptual originam uma tabela no modelo lógico. Assim sendo, foram criadas 8 tabelas por cada uma das entidades. 
+	Cada relação n para m origina uma outra tabela. 
+	Existe um relacionamento ternário no nosso modelo que dá origem a outra tabela também. E o atributo multivalor denominado "CDU" também origina uma nova tabela.
+	Existem portanto 12 tabelas que serão justificadas detalhadamente.
+
+	
+	Utilizador = {idUser, Tipo, Nome, Email, CC, NroMecanografico, Contacto}
+	Chave primária: idUser
+	Chaves estrangeiras: nenhuma? VER TODO
+
+	Livro = {idLivro, Titulo, CodBarras, ISBN, ISSN}
+	Chave primária: idLivro
+	Chaves estrangeiras: 
+
+	CDU = {CDU, Exemplar}
+	Chave primária: 
+	Chaves estrangeiras: 
+
+	Autor = {idAutor, PrimeirosNomes, Apelido}
+	Chave primária: idAutor
+	Chaves estrangeiras: 
+
+	Editora = {idEditora, Designacao}
+	Chave primária: idEditora
+	Chaves estrangeiras: 
+
+	Requisicao = {idRequisicao, DataRequisicao, DataEntrega, Estado, NroMaxRenovacoes, Exemplar}
+	Chave primária: idRequisicao
+	Chaves estrangeiras: nenhuma
+
+	Exemplar = {idExemplar, Condicao, Disponibilidade, Localizacao, Livro}
+	Chave primária: idExemplar
+	Chaves estrangeiras: 
+
+	Localizacao = {IdLocal, Piso, Estante, Prateleira}
+	Chave primária: IdLocal
+	Chaves estrangeiras: 
+
+
+
+	TODO----------------------------
+	Coleçao = {idColecao}
+	Chave primária: idColecao
+	Chaves estrangeiras: 
+
+	Exemplar-Reservado-Utilizador = {Exemplar, Utilizador, DataReserva, Estado}
+	Chave primária: 
+	Chaves estrangeiras: 
+
+	Livro-Publicado-Editora = {Livro, Editora, Edicao, Ano}
+	Chave primária: 
+	Chaves estrangeiras: 
+
+	Autor-escreve-Livro = {Livro, Autor, Ano}
+	Chave primária: 
+	Chaves estrangeiras: 
+
+
+
+
+
+	
+	Escolha das Chaves Estrangeiras
+
