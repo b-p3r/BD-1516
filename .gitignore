@@ -3,4 +3,4 @@
 ~*.doc
 ~*.docx
 *.tmp
-*.bak
+*\*.bak
