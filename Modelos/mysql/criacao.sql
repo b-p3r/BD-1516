@@ -136,6 +136,8 @@ CREATE TABLE IF NOT EXISTS `BGUM`.`Exemplar` (
   `Condicao` VARCHAR(75) NOT NULL,
   `Disponibilidade` INT NOT NULL,
   `Localizacao` INT NOT NULL,
+  -- TODO verificar
+  CHECK(Disponibilidade = 0 or Disponibilidade = 1 or Disponibilidade = 2),
   `Livro` INT NOT NULL,
   PRIMARY KEY (`idExemplar`, `Livro`),
   INDEX `fk_Exemplar_Localizacao1_idx` (`Localizacao` ASC),
