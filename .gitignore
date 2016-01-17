@@ -1,8 +1,19 @@
-# Documentos temporarios word
+# Ficheiros temporarios
 
 ~*.doc
 ~*.docx
 *.tmp
-*\*.bak
+
+#Atalhos
+
 *.lnk
+
+# Ficheiros backup
+
+*\*.bak
 *.bak
+
+# Ficheiros intelij
+
+*.xml
+*.iml
