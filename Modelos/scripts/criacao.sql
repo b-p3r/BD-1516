@@ -1,38 +1,37 @@
--- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados
--- 2015/2016
--- MySQL Workbench Forward Engineering
+-- Unidade Curricular de Base de Dados
+-- Ano Lectivo 2015/2016
+-- Script criacao BGUM
 
--- TODO:  opçao CHECK : acrescentar restriçoes para os estados dos livros que so podem tomar certos valores 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 -- -----------------------------------------------------
 -- Schema BGUM
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `BGUM` ;
 
--- -----------------------------------------------------
--- Schema BGUM
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `BGUM` DEFAULT CHARACTER SET utf8 ;
 USE `BGUM` ;
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Coleccao`
+-- Table `Coleccao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Coleccao` (
-  `idColeccao` INT NOT NULL,
-  `Designacao` VARCHAR(75) NULL,
+DROP TABLE IF EXISTS `Coleccao` ;
+
+CREATE TABLE IF NOT EXISTS `Coleccao` (
+  `idColeccao` INT NOT NULL AUTO_INCREMENT,
+  `Designacao` VARCHAR(75) NOT NULL,
   PRIMARY KEY (`idColeccao`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Livro`
+-- Table `Livro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Livro` (
+DROP TABLE IF EXISTS `Livro` ;
+
+CREATE TABLE IF NOT EXISTS `Livro` (
   `idLivro` INT NOT NULL AUTO_INCREMENT,
   `Titulo` VARCHAR(100) NOT NULL,
   `CodBarras` VARCHAR(25) NOT NULL,
@@ -43,16 +42,18 @@ CREATE TABLE IF NOT EXISTS `BGUM`.`Livro` (
   INDEX `fk_livro_coleccao_idx` (`Coleccao` ASC),
   CONSTRAINT `fk_livro_coleccao`
     FOREIGN KEY (`Coleccao`)
-    REFERENCES `BGUM`.`Coleccao` (`idColeccao`)
+    REFERENCES `Coleccao` (`idColeccao`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Autor`
+-- Table `Autor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Autor` (
+DROP TABLE IF EXISTS `Autor` ;
+
+CREATE TABLE IF NOT EXISTS `Autor` (
   `idAutor` INT NOT NULL AUTO_INCREMENT,
   `PrimeirosNomes` VARCHAR(75) NOT NULL,
   `Apelido` VARCHAR(25) NOT NULL,
@@ -61,9 +62,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Autor-Escreve-Livro`
+-- Table `Autor-Escreve-Livro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Autor-Escreve-Livro` (
+DROP TABLE IF EXISTS `Autor-Escreve-Livro` ;
+
+CREATE TABLE IF NOT EXISTS `Autor-Escreve-Livro` (
   `Livro` INT NOT NULL,
   `Autor` INT NOT NULL,
   PRIMARY KEY (`Livro`, `Autor`),
@@ -71,21 +74,23 @@ CREATE TABLE IF NOT EXISTS `BGUM`.`Autor-Escreve-Livro` (
   INDEX `fk_Livro_has_Autor_Livro_idx` (`Livro` ASC),
   CONSTRAINT `fk_Livro_has_Autor_Livro`
     FOREIGN KEY (`Livro`)
-    REFERENCES `BGUM`.`Livro` (`idLivro`)
+    REFERENCES `Livro` (`idLivro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Livro_has_Autor_Autor1`
     FOREIGN KEY (`Autor`)
-    REFERENCES `BGUM`.`Autor` (`idAutor`)
+    REFERENCES `Autor` (`idAutor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Editora`
+-- Table `Editora`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Editora` (
+DROP TABLE IF EXISTS `Editora` ;
+
+CREATE TABLE IF NOT EXISTS `Editora` (
   `idEditora` INT NOT NULL AUTO_INCREMENT,
   `Designacao` VARCHAR(75) NOT NULL,
   PRIMARY KEY (`idEditora`))
@@ -93,9 +98,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Livro-Publicado-Editora`
+-- Table `Livro-Publicado-Editora`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Livro-Publicado-Editora` (
+DROP TABLE IF EXISTS `Livro-Publicado-Editora` ;
+
+CREATE TABLE IF NOT EXISTS `Livro-Publicado-Editora` (
   `Livro` INT NOT NULL,
   `Editora` INT NOT NULL,
   `Edicao` INT NOT NULL,
@@ -105,21 +112,23 @@ CREATE TABLE IF NOT EXISTS `BGUM`.`Livro-Publicado-Editora` (
   INDEX `fk_Livro_has_Editora_Livro1_idx` (`Livro` ASC),
   CONSTRAINT `fk_Livro_has_Editora_Livro1`
     FOREIGN KEY (`Livro`)
-    REFERENCES `BGUM`.`Livro` (`idLivro`)
+    REFERENCES `Livro` (`idLivro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Livro_has_Editora_Editora1`
     FOREIGN KEY (`Editora`)
-    REFERENCES `BGUM`.`Editora` (`idEditora`)
+    REFERENCES `Editora` (`idEditora`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Localizacao`
+-- Table `Localizacao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Localizacao` (
+DROP TABLE IF EXISTS `Localizacao` ;
+
+CREATE TABLE IF NOT EXISTS `Localizacao` (
   `idLocal` INT NOT NULL,
   `Piso` INT NOT NULL,
   `Estante` INT NOT NULL,
@@ -129,36 +138,38 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Exemplar`
+-- Table `Exemplar`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Exemplar` (
+DROP TABLE IF EXISTS `Exemplar` ;
+
+CREATE TABLE IF NOT EXISTS `Exemplar` (
   `idExemplar` INT NOT NULL AUTO_INCREMENT,
   `Condicao` VARCHAR(75) NOT NULL,
   `Disponibilidade` INT NOT NULL,
   `Localizacao` INT NOT NULL,
-  -- TODO verificar
-  CHECK(Disponibilidade = 0 or Disponibilidade = 1 or Disponibilidade = 2),
   `Livro` INT NOT NULL,
   PRIMARY KEY (`idExemplar`, `Livro`),
   INDEX `fk_Exemplar_Localizacao1_idx` (`Localizacao` ASC),
   INDEX `fk_Exemplar_Livro1_idx` (`Livro` ASC),
   CONSTRAINT `fk_Exemplar_Localizacao1`
     FOREIGN KEY (`Localizacao`)
-    REFERENCES `BGUM`.`Localizacao` (`idLocal`)
+    REFERENCES `Localizacao` (`idLocal`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Exemplar_Livro1`
     FOREIGN KEY (`Livro`)
-    REFERENCES `BGUM`.`Livro` (`idLivro`)
+    REFERENCES `Livro` (`idLivro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Utilizador`
+-- Table `Utilizador`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Utilizador` (
+DROP TABLE IF EXISTS `Utilizador` ;
+
+CREATE TABLE IF NOT EXISTS `Utilizador` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `Tipo` VARCHAR(2) NOT NULL,
   `Nome` VARCHAR(75) NOT NULL,
@@ -171,9 +182,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Requisicao`
+-- Table `Requisicao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Requisicao` (
+DROP TABLE IF EXISTS `Requisicao` ;
+
+CREATE TABLE IF NOT EXISTS `Requisicao` (
   `idRequisicao` INT NOT NULL AUTO_INCREMENT,
   `DataRequisicao` DATE NOT NULL,
   `DataEntrega` DATE NOT NULL,
@@ -187,52 +200,56 @@ CREATE TABLE IF NOT EXISTS `BGUM`.`Requisicao` (
   INDEX `fk_Requisicao_Utilizador_idx` (`Utilizador` ASC),
   CONSTRAINT `fk_Requisicao_Exemplar1`
     FOREIGN KEY (`Exemplar`)
-    REFERENCES `BGUM`.`Exemplar` (`idExemplar`)
+    REFERENCES `Exemplar` (`idExemplar`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Requisicao_Utilizador`
     FOREIGN KEY (`Utilizador`)
-    REFERENCES `BGUM`.`Utilizador` (`idUser`)
+    REFERENCES `Utilizador` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`Exemplar-reservado-Utilizador`
+-- Table `Exemplar-reservado-Utilizador`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`Exemplar-reservado-Utilizador` (
+DROP TABLE IF EXISTS `Exemplar-reservado-Utilizador` ;
+
+CREATE TABLE IF NOT EXISTS `Exemplar-reservado-Utilizador` (
   `Exemplar` INT NOT NULL,
   `Utilizador` INT NOT NULL,
   `DataReserva` DATE NOT NULL,
   `Estado` INT NOT NULL,
-  PRIMARY KEY (`Exemplar`, `Utilizador`),
+  PRIMARY KEY (`Exemplar`, `Utilizador`, `DataReserva`),
   INDEX `fk_Exemplar_has_Utilizador_Utilizador1_idx` (`Utilizador` ASC),
   INDEX `fk_Exemplar_has_Utilizador_Exemplar1_idx` (`Exemplar` ASC),
   CONSTRAINT `fk_Exemplar_has_Utilizador_Exemplar1`
     FOREIGN KEY (`Exemplar`)
-    REFERENCES `BGUM`.`Exemplar` (`idExemplar`)
+    REFERENCES `Exemplar` (`idExemplar`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Exemplar_has_Utilizador_Utilizador1`
     FOREIGN KEY (`Utilizador`)
-    REFERENCES `BGUM`.`Utilizador` (`idUser`)
+    REFERENCES `Utilizador` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BGUM`.`CDU`
+-- Table `CDU`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BGUM`.`CDU` (
+DROP TABLE IF EXISTS `CDU` ;
+
+CREATE TABLE IF NOT EXISTS `CDU` (
   `CDU` VARCHAR(45) NOT NULL,
   `Livro` INT NOT NULL,
   PRIMARY KEY (`CDU`, `Livro`),
   INDEX `fk_CDU_Livro1_idx` (`Livro` ASC),
   CONSTRAINT `fk_CDU_Livro1`
     FOREIGN KEY (`Livro`)
-    REFERENCES `BGUM`.`Livro` (`idLivro`)
+    REFERENCES `Livro` (`idLivro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
