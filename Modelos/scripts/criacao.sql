@@ -17,7 +17,7 @@ USE `BGUM` ;
 -- -----------------------------------------------------
 -- Table `Coleccao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Coleccao` ;
+-- DROP TABLE IF EXISTS `Coleccao` ;
 
 CREATE TABLE IF NOT EXISTS `Coleccao` (
   `idColeccao` INT NOT NULL AUTO_INCREMENT,
@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Livro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Livro` ;
+-- DROP TABLE IF EXISTS `Livro` ;
 
 CREATE TABLE IF NOT EXISTS `Livro` (
   `idLivro` INT NOT NULL AUTO_INCREMENT,
@@ -51,7 +51,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Autor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Autor` ;
+-- DROP TABLE IF EXISTS `Autor` ;
 
 CREATE TABLE IF NOT EXISTS `Autor` (
   `idAutor` INT NOT NULL AUTO_INCREMENT,
@@ -64,7 +64,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Autor-Escreve-Livro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Autor-Escreve-Livro` ;
+-- DROP TABLE IF EXISTS `Autor-Escreve-Livro` ;
 
 CREATE TABLE IF NOT EXISTS `Autor-Escreve-Livro` (
   `Livro` INT NOT NULL,
@@ -88,7 +88,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Editora`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Editora` ;
+-- DROP TABLE IF EXISTS `Editora` ;
 
 CREATE TABLE IF NOT EXISTS `Editora` (
   `idEditora` INT NOT NULL AUTO_INCREMENT,
@@ -100,7 +100,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Livro-Publicado-Editora`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Livro-Publicado-Editora` ;
+-- DROP TABLE IF EXISTS `Livro-Publicado-Editora` ;
 
 CREATE TABLE IF NOT EXISTS `Livro-Publicado-Editora` (
   `Livro` INT NOT NULL,
@@ -126,7 +126,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Localizacao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Localizacao` ;
+-- DROP TABLE IF EXISTS `Localizacao` ;
 
 CREATE TABLE IF NOT EXISTS `Localizacao` (
   `idLocal` INT NOT NULL,
@@ -140,7 +140,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Exemplar`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Exemplar` ;
+-- DROP TABLE IF EXISTS `Exemplar` ;
 
 CREATE TABLE IF NOT EXISTS `Exemplar` (
   `idExemplar` INT NOT NULL AUTO_INCREMENT,
@@ -167,7 +167,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Utilizador`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Utilizador` ;
+-- DROP TABLE IF EXISTS `Utilizador` ;
 
 CREATE TABLE IF NOT EXISTS `Utilizador` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
@@ -184,7 +184,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Requisicao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Requisicao` ;
+-- DROP TABLE IF EXISTS `Requisicao` ;
 
 CREATE TABLE IF NOT EXISTS `Requisicao` (
   `idRequisicao` INT NOT NULL AUTO_INCREMENT,
@@ -214,7 +214,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Exemplar-reservado-Utilizador`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Exemplar-reservado-Utilizador` ;
+-- DROP TABLE IF EXISTS `Exemplar-reservado-Utilizador` ;
 
 CREATE TABLE IF NOT EXISTS `Exemplar-reservado-Utilizador` (
   `Exemplar` INT NOT NULL,
@@ -240,7 +240,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `CDU`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CDU` ;
+-- DROP TABLE IF EXISTS `CDU` ;
 
 CREATE TABLE IF NOT EXISTS `CDU` (
   `CDU` VARCHAR(45) NOT NULL,

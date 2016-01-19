@@ -25,19 +25,6 @@ VALUES
 (14,'Prosa'),
 (15,'Geologia');
 
-SET SQL_SAFE_UPDATES = 1;
-
-
-
-	
-    -- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
-
 INSERT INTO autor
 (idAutor,Apelido, PrimeirosNomes)
 VALUES
@@ -3173,15 +3160,6 @@ VALUES
 (3130,'Austen','Mary'),
 (3131,'Darden','Christopher A.');
 
-SET SQL_SAFE_UPDATES = 1;
--- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
-
 INSERT INTO editora
 (idEditora, Designacao)
 VALUES
@@ -4268,15 +4246,6 @@ VALUES
 (1081,'Belknap Press'),
 (1082,'Odonian Press'),
 (1083,'Parallax Press');
-
-SET SQL_SAFE_UPDATES = 1;
--- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO utilizador
 (idUser, Tipo, Nome, Email, CC, NroMecanografico, Telefone)
@@ -7281,15 +7250,6 @@ VALUES
 (2998,'A','Érica Caldeira','A8997@uminho.pt','216718235','8997','236894198'),
 (2999,'A','Lisandro Freitas','A8998@uminho.pt','371781415','8998','219995481'),
 (3000,'A','Bruno Afonso','A8999@uminho.pt','145199612','8999','225284676');
-
-SET SQL_SAFE_UPDATES = 1;
--- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO livro
 (idLivro, Titulo, CodBarras, ISBN, ISSN, Coleccao)
@@ -12294,15 +12254,6 @@ VALUES
 (4998,'A Matter of Honor','99348227882','671624342','8709-8573',6),
 (4999,'Black Water','29219081353','786890169','2342-2869',6),
 (5000,'In Contempt','43767535356','61095982','3104-9336',11);
-
-SET SQL_SAFE_UPDATES = 1;
--- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO cdu
 (Livro,CDU)
@@ -17879,19 +17830,6 @@ VALUES
 (3786,'486.5');
 
 
-SET SQL_SAFE_UPDATES = 1;
-
-
-
-	
-    -- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
-
 INSERT INTO localizacao
 (idLocal, Piso, Estante, Prateleira)
 VALUES
@@ -19846,19 +19784,6 @@ VALUES
 (1949,3,130,4),
 (1950,3,130,5);
 
-
-SET SQL_SAFE_UPDATES = 1;
-
-
-
-	
-    -- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO exemplar
 (idExemplar, Condicao, Disponibilidade, Localizacao, Livro)
@@ -39808,19 +39733,6 @@ VALUES
 (19943,'Normal',2,469,5000);
 
 
-SET SQL_SAFE_UPDATES = 1;
-
-
-
-	
-    -- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
-
 INSERT INTO `livro-publicado-editora`
 (Livro, Editora, Edicao, Ano)
 VALUES
@@ -49914,19 +49826,6 @@ VALUES
 (4999,1074,2,1993),
 (5000,960,1,1992);
 
-
-SET SQL_SAFE_UPDATES = 1;
-
-
-
-	
-    -- Universidade do Minho
--- Mestrado Integrado em Engenharia Informática
--- Unidade Curricular de Bases de Dados 2015/2016
-
-
-USE bgum;
-SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO `autor-escreve-livro`
 (Livro,Autor)
