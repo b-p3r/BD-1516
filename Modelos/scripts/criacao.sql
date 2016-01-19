@@ -33,10 +33,10 @@ DROP TABLE IF EXISTS `Livro` ;
 
 CREATE TABLE IF NOT EXISTS `Livro` (
   `idLivro` INT NOT NULL AUTO_INCREMENT,
-  `Titulo` VARCHAR(100) NOT NULL,
+  `Titulo` VARCHAR(250) NOT NULL,
   `CodBarras` VARCHAR(25) NOT NULL,
   `ISBN` VARCHAR(13) NOT NULL,
-  `ISSN` VARCHAR(8) NOT NULL,
+  `ISSN` VARCHAR(10) NOT NULL,
   `Coleccao` INT NULL,
   PRIMARY KEY (`idLivro`),
   INDEX `fk_livro_coleccao_idx` (`Coleccao` ASC),
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `Livro-Publicado-Editora` (
   `Editora` INT NOT NULL,
   `Edicao` INT NOT NULL,
   `Ano` YEAR NOT NULL,
-  PRIMARY KEY (`Livro`, `Editora`),
+  PRIMARY KEY (`Livro`, `Editora`, `edicao`),
   INDEX `fk_Livro_has_Editora_Editora1_idx` (`Editora` ASC),
   INDEX `fk_Livro_has_Editora_Livro1_idx` (`Livro` ASC),
   CONSTRAINT `fk_Livro_has_Editora_Livro1`
