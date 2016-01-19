@@ -1,5 +1,6 @@
 import re
 import random
+import glob
 
 
 def eliminarepetidos(fich):
@@ -136,7 +137,7 @@ def gera_exemplares():
 
     f1.close()
 
-def gerapublicacoes():
+def gera_publicacoes():
     f1 = open('datasets\publicacoes.txt', 'w+')
     idlivro=1
 
@@ -153,9 +154,26 @@ def gerapublicacoes():
 
     f1.close()
 
+def cria_povoamento_geral():
+    filenames = ['01_coleccao.sql',
+                 '02_autor.sql',
+                 '03_editora.sql',
+                 '04_utilizador.sql',
+                 '05_livro.sql',
+                 '06_cdu.sql',
+                 '07_localizacao.sql',
+                 '08_exemplares.sql',
+                 '09_livro_editora.sql',
+                 '10_autor_livro.sql']
+
+    with open('scripts/00_geral.sql', 'w') as outfile:
+        for fname in filenames:
+            with open('scripts/' + fname, 'r', encoding="utf8") as infile:
+                for line in infile:
+                    outfile.write(line)
+                    outfile.flush()
 
 
-gerapublicacoes()
-
+cria_povoamento_geral()
 
 
