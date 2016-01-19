@@ -166,14 +166,23 @@ def cria_povoamento_geral():
                  '09_livro_editora.sql',
                  '10_autor_livro.sql']
 
-    with open('scripts/00_geral.sql', 'w') as outfile:
+    with open('scripts/00_geral.sql', 'w', encoding="utf8") as outfile:
         for fname in filenames:
             with open('scripts/' + fname, 'r', encoding="utf8") as infile:
                 for line in infile:
                     outfile.write(line)
                     outfile.flush()
 
+def maior_linha():
+    maior = -1
+    with open('titulos.txt', 'r', encoding="utf8") as infile:
+        for line in infile:
+            tamlinha = len(line)
+            if tamlinha > maior:
+                maior = tamlinha
 
-cria_povoamento_geral()
+    print(maior)
+
+
 
 
