@@ -4,8 +4,7 @@ delimiter \\
 CREATE PROCEDURE sp_efectuar_requisicao(IN p_IdExemplar INT, IN p_Utilizador INT, IN p_DataRequisicao DATE,  IN p_DataEntrega DATE, IN p_NrMaxRenovacoes INT)
 BEGIN
 
-DECLARE v_utilizador INT;
-DECLARE v_numeroReservas INT DEFAULT 0;
+DECLARE v_numeroReservasOutrosUtilizadores INT DEFAULT 0;
 DECLARE v_disponibilidadeExemplar INT;
 DECLARE Erro BOOL DEFAULT 0;
 DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
@@ -17,25 +16,15 @@ START TRANSACTION;
 SELECT E.Disponibilidade INTO v_disponibilidadeExemplar
 	FROM Exemplar E
     WHERE E.idExemplar = p_IdExemplar;
-    
-IF Erro OR v_disponibilidadeExemplar != 2 THEN
-	ROLLBACK;
-END IF;
 
-SELECT COUNT(Exemplar) INTO v_numeroReservas
+IF v_disponibilidadeExemplar != 2 THEN ROLLBACK; END IF;
+IF Erro THEN ROLLBACK; END IF;
+
+SELECT COUNT(Exemplar) INTO v_numeroReservasOutrosUtilizadores
 	FROM `exemplar-reservado-utilizador` ERU
-    WHERE Exemplar = p_IdExemplar AND Utilizador = p_Utilizador AND Estado = 1;
+    WHERE Exemplar = p_IdExemplar AND Utilizador != p_Utilizador AND Estado = 1;
 
-IF v_numeroReservas > 0 OR Erro 
-	THEN
-		SELECT ERU.Utilizador INTO v_utilizador
-			FROM `exemplar-reservado-utilizador` ERU
-			WHERE Exemplar = p_IdExemplar AND Estado = 1
-			ORDER BY DataReserva ASC
-			LIMIT 1;
-	ELSE
-		ROLLBACK;
-END IF;
+IF v_numeroReservasOutrosUtilizadores > 0 OR Erro THEN ROLLBACK; END IF;
 
 INSERT INTO requisicao
 (DataRequisicao, DataEntrega, Estado, NroMaxRenovacoes, NrRenovacoes, Exemplar, Utilizador)
@@ -43,14 +32,14 @@ VALUES
 (p_DataRequisicao, p_DataEntrega, 0, p_NrMaxRenovacoes, 0, p_IdExemplar, p_Utilizador);
 
 IF Erro THEN ROLLBACK; END IF;
-
-UPDATE exemplar
-	SET Disponibilidade = 1
-    WHERE idExemplar = p_IdExemplar;
     
 UPDATE `exemplar-reservado-utilizador`
 	SET Estado = 2
     WHERE Estado = 1 AND Exemplar = p_IdExemplar AND Utilizador = p_Utilizador;
+
+UPDATE exemplar
+	SET Disponibilidade = 1
+    WHERE idExemplar = p_IdExemplar;
 
 IF Erro THEN ROLLBACK; ELSE COMMIT; END IF;
 
@@ -172,6 +161,7 @@ delimiter \\
 CREATE PROCEDURE sp_cancelar_reserva(IN p_idExemplar INT, IN p_idUtilizador INT, IN p_DataReserva DATE)
 BEGIN
 
+DECLARE v_utilizadoresEmEspera INT;
 DECLARE v_disponibilidade INT;
 DECLARE v_estadoAInserir INT;
 DECLARE Erro BOOL DEFAULT 0;
@@ -184,6 +174,22 @@ START TRANSACTION;
 UPDATE `exemplar-reservado-utilizador`
 	SET Estado = 3
     WHERE Exemplar = p_idExemplar AND Utilizador = p_idUtilizador AND DataReserva = p_DataReserva;
+
+IF Erro THEN ROLLBACK; END IF;
+
+SELECT COUNT(Exemplar) INTO v_utilizadoresEmEspera
+	FROM `exemplar-reservado-utilizador` ERU
+    WHERE Estado = 1 AND Exemplar = p_idExemplar;
+
+IF Erro THEN ROLLBACK; END IF;
+
+IF v_utilizadoresEmEspera =0 THEN
+	UPDATE `exemplar-reservado-utilizador`
+		SET Estado = 1
+		WHERE Exemplar = p_idExemplar AND Estado = 0
+		ORDER BY DataReserva ASC
+		LIMIT 1;
+END IF;
 
 IF Erro THEN ROLLBACK; ELSE COMMIT; END IF;
 SET SQL_SAFE_UPDATES = 1;
