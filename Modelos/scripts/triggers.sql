@@ -5,11 +5,6 @@ CREATE TRIGGER actualiza_reservas AFTER UPDATE ON exemplar
 FOR EACH ROW
 BEGIN
 
-DECLARE Erro BOOL DEFAULT 0;
-DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
-
-START TRANSACTION;
-
 SET SQL_SAFE_UPDATES = 0;
 -- Livro livre (2) passa a requisitado (1)
 IF OLD.Disponibilidade = 2 AND NEW.Disponibilidade = 1 
@@ -36,8 +31,6 @@ IF OLD.Disponibilidade = 1 AND NEW.Disponibilidade = 2
 END IF;
 
 SET SQL_SAFE_UPDATES = 1;
-
-IF Erro THEN ROLLBACK; ELSE COMMIT; END IF;
 
 END;\\
 delimiter ;
