@@ -21,6 +21,18 @@ START TRANSACTION
 END TRANSACTION
 END
 
+PROCEDURE efectuar_reserva()
+BEGIN
+\\Desactivar auto-commit
+START TRANSACTION
+\\Verificar disponibilidade do exemplar
+\\Se não poder ser requisitado, cancelar
+\\Se ja estiver requisitado, inserir marcar como "reserva pedida"
+\\Se estiver livre, marcar como "livro pronto a levantar"
+\\Inserir reserva
+
+END TRANSACTION
+END
 
 TRIGGER AFTER UPDATE ON Exemplar
 BEGIN
