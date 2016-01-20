@@ -23,24 +23,24 @@
 
 > Projeto Lógico
 
-1. Passagem do modelo de dados conceptual local para um seu correspondente modelo de dados lógico.
-2. Validação do modelo de dados lógico através da normalização.
-3. Validação do modelo com as transacções do utilizador - elaboração do correspondente mapa de transações.
-4. Elaboração e validação do esquema lógico da base de dados.
-5. Definição do tamanho inicial da bases de dados e análise do seu crescimento futuro.
-6. Revisão do modelo lógico final com os futuros utilizadores do sistema de bases de dados.
+DONE 1. Passagem do modelo de dados conceptual local para um seu correspondente modelo de dados lógico. 
+DONE 2. Validação do modelo de dados lógico através da normalização.
+TO CHECK 3. Validação do modelo com as transacções do utilizador - elaboração do correspondente mapa de transações.
+DONE 4. Elaboração e validação do esquema lógico da base de dados.
+TO CHECK 5. Definição do tamanho inicial da bases de dados e análise do seu crescimento futuro.
+TO CHECK 6. Revisão do modelo lógico final com os futuros utilizadores do sistema de bases de dados.
 
 
 > Projeto Físico
 
-1. Tradução do modelo lógico para um SGBD e consequente implementação.
-2. Desenho da representação física - esquema físico.
-3. Análise de transações.
-4. Estimativa dos requisitos do espaço em disco agora com base no SGBD escolhido.
-5. Definição das vistas dos utilizadores e regras de acesso.
+DOING 1. Tradução do modelo lógico para um SGBD e consequente implementação.
+TO CHECK 2. Desenho da representação física - esquema físico.
+TO CHECK 3. Análise de transações.
+TO CHECK 4. Estimativa dos requisitos do espaço em disco agora com base no SGBD escolhido.
+TO CHECK 5. Definição das vistas dos utilizadores e regras de acesso.
 
 
 > Relatório final
-1. Incluir o relatório da primeira parte (Melhorado) 
-2. Incluir partes a tratar agora
+DONE 1. Incluir o relatório da primeira parte (Melhorado) 
+DOING 2. Incluir partes a tratar agora
 NOTA: aspetos de redação e correção da escrita.
