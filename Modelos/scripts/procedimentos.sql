@@ -60,6 +60,37 @@ END;\\
 delimiter ;
 
 delimiter \\
+CREATE PROCEDURE sp_renovar_requisicao(IN p_idRequisicao INT, IN p_dataRequisicao DATE, IN p_dataEntrega DATE)
+BEGIN
+
+DECLARE v_numRenovacoes INT;
+DECLARE v_numMaxRenovacoes INT;
+DECLARE Erro BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
+
+SET autocommit = 0;
+SET SQL_SAFE_UPDATES = 0;
+
+START TRANSACTION;
+
+SELECT NrRenovacoes, NroMaxRenovacoes INTO v_numRenovacoes, v_numMaxRenovacoes
+	FROM requisicao
+	WHERE idRequisicao = p_idRequisicao;
+
+IF Erro OR v_numRenovacoes = v_numMaxRenovacoes THEN ROLLBACK; END IF;
+
+UPDATE requisicao
+	SET NrRenovacoes = NroRenovacoes + 1, DataRequisicao = p_dataRequisicao, DataEntrega = p_dataEntrega
+	WHERE idRequisicao = p_idRequisicao;
+
+IF Erro THEN ROLLBACK; ELSE COMMIT; END IF;
+
+SET SQL_SAFE_UPDATES = 1;
+
+END;\\
+delimiter ;
+
+delimiter \\
 CREATE PROCEDURE sp_entregar_exemplar_requisicao(IN p_idExemplar INT)
 BEGIN
 
