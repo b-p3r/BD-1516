@@ -47,6 +47,10 @@ IF Erro THEN ROLLBACK; END IF;
 UPDATE exemplar
 	SET Disponibilidade = 1
     WHERE idExemplar = p_IdExemplar;
+    
+UPDATE `exemplar-reservado-utilizador`
+	SET Estado = 2
+    WHERE Estado = 1 AND Exemplar = p_IdExemplar AND Utilizador = p_Utilizador;
 
 IF Erro THEN ROLLBACK; ELSE COMMIT; END IF;
 
@@ -100,6 +104,7 @@ delimiter \\
 CREATE PROCEDURE sp_efectuar_reserva(IN p_idExemplar INT, IN p_idUtilizador INT, IN p_DataReserva DATE)
 BEGIN
 
+DECLARE v_numReservas INT DEFAULT 0;
 DECLARE v_disponibilidade INT;
 DECLARE v_estadoAInserir INT;
 DECLARE Erro BOOL DEFAULT 0;
@@ -114,12 +119,13 @@ SELECT E.Disponibilidade INTO v_disponibilidade
 	FROM exemplar E
     WHERE E.idExemplar = p_idExemplar;
 
-IF Erro OR v_disponibilidade=0 THEN ROLLBACK; END IF;
+SELECT COUNT(Exemplar) INTO v_numReservas
+	FROM `exemplar-reservado-utilizador`
+    WHERE Exemplar = p_idExemplar AND (Estado = 0 OR Estado = 1);
 
-IF v_disponibilidade = 1 THEN SET v_estadoAInserir = 0; END IF;
-IF v_disponibilidade = 2 THEN SET v_estadoAInserir = 1; END IF;
-
-IF Erro THEN ROLLBACK; END IF;
+IF v_disponibilidade = 0 THEN ROLLBACK; END IF;
+IF v_disponibilidade = 1 OR v_numReservas > 0 THEN SET v_estadoAInserir = 0; END IF;
+IF v_disponibilidade = 2 AND v_numReservas = 0 THEN SET v_estadoAInserir = 1; END IF;
 
 INSERT INTO `exemplar-reservado-utilizador`
 (Exemplar,Utilizador, DataReserva, Estado)

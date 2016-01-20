@@ -1,5 +1,7 @@
 USE bgum;
 
+DROP Trigger actualiza_reservas;
+
 delimiter \\
 CREATE TRIGGER actualiza_reservas AFTER UPDATE ON exemplar
 FOR EACH ROW
@@ -13,9 +15,7 @@ IF OLD.Disponibilidade = 2 AND NEW.Disponibilidade = 1
     -- para reserva pedida (0)
 		UPDATE `exemplar-reservado-utilizador`
 			SET Estado = 0
-            WHERE Exemplar = NEW.idExemplar AND Estado = 1
-            ORDER BY DataReserva ASC
-            LIMIT 1;
+            WHERE Exemplar = NEW.idExemplar AND Estado = 1;
 END IF;
 
 -- Livro requisitado (1) passa a livre (2)
