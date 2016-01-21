@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `Exemplar` (
   `Disponibilidade` INT NOT NULL,
   `Localizacao` INT NOT NULL,
   `Livro` INT NOT NULL,
-  PRIMARY KEY (`idExemplar`, `Livro`),
+  PRIMARY KEY (`idExemplar`),
   INDEX `fk_Exemplar_Localizacao1_idx` (`Localizacao` ASC),
   INDEX `fk_Exemplar_Livro1_idx` (`Livro` ASC),
   CONSTRAINT `fk_Exemplar_Localizacao1`
