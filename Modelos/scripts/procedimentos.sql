@@ -196,4 +196,24 @@ SET SQL_SAFE_UPDATES = 1;
 END;\\
 delimiter ;
 
+delimiter \\
+CREATE PROCEDURE sp_localizacao_exemplares(IN p_titulo VARCHAR(250))
+BEGIN
+
+DECLARE Erro BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
+
+START TRANSACTION;
+
+SELECT DISTINCT Loc.*
+	FROM (SELECT *
+			FROM livro
+			WHERE Titulo = p_titulo) L, Exemplar E, localizacao Loc
+	WHERE L.idLivro = E.Livro AND E.Localizacao = Loc.idLocal;
+
+
+SET SQL_SAFE_UPDATES = 1;
+
+END;\\
+delimiter ;
 
