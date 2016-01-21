@@ -1,7 +1,5 @@
 USE bgum;
 
-DROP Trigger actualiza_reservas;
-
 delimiter \\
 CREATE TRIGGER actualiza_reservas AFTER UPDATE ON exemplar
 FOR EACH ROW
