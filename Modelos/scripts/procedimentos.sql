@@ -108,14 +108,14 @@ UPDATE exemplar
 IF Erro THEN SET mustRollback = 1; END IF;
 
 SELECT idRequisicao INTO v_idRequisicao
-	FROM Exemplar E, Requisicao R
-    WHERE R.Estado = 0 AND E.idExemplar = R.Exemplar;
+	FROM Requisicao R
+    WHERE R.Estado = 0 AND R.Exemplar = p_idExemplar;
 
 IF Erro THEN SET mustRollback = 1; END IF;
 
 UPDATE requisicao
-SET Estado = 1
-WHERE idRequisicao = v_idRequisicao;
+	SET Estado = 1
+	WHERE idRequisicao = v_idRequisicao;
 
 IF Erro or mustRollback = 1 THEN ROLLBACK; ELSE COMMIT; END IF;
 SET SQL_SAFE_UPDATES = 1;
@@ -204,18 +204,11 @@ delimiter \\
 CREATE PROCEDURE sp_localizacao_exemplares(IN p_titulo VARCHAR(250))
 BEGIN
 
-DECLARE Erro BOOL DEFAULT 0;
-DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
-
-
 SELECT DISTINCT Loc.*
 	FROM (SELECT *
 			FROM livro
 			WHERE Titulo = p_titulo) L, Exemplar E, localizacao Loc
 	WHERE L.idLivro = E.Livro AND E.Localizacao = Loc.idLocal;
-
-
-SET SQL_SAFE_UPDATES = 1;
 
 END;\\
 delimiter ;

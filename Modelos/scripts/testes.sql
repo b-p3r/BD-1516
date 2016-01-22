@@ -6,7 +6,7 @@ USE bgum;
 
 SELECT *
 	FROM exemplar E
-    WHERE E.idExemplar = 500;
+    WHERE E.idExemplar = 301;
 
 SELECT *
 	FROM utilizador U
@@ -41,6 +41,14 @@ CALL sp_cancelar_reserva(500, 500, CURDATE());
 CALL sp_efectuar_requisicao(500, 350, CURDATE(),  (CURDATE() +  INTERVAL 2 WEEK), 6);
 CALL sp_efectuar_requisicao(500, 100, CURDATE(),  (CURDATE() +  INTERVAL 2 WEEK), 6);
 CALL sp_efectuar_requisicao(500, 150, CURDATE(),  (CURDATE() +  INTERVAL 2 WEEK), 6);
+
+CALL sp_efectuar_requisicao(301, 301, CURDATE(),  (CURDATE() +  INTERVAL 2 WEEK), 6);
+
+CALL sp_entregar_exemplar_requisicao(301);
+
+SELECT idRequisicao
+	FROM Requisicao R
+    WHERE R.Estado = 0 AND R.Exemplar=301;
 
 SELECT *
 	FROM requisicao;
