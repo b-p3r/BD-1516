@@ -2,7 +2,6 @@
 ==		 TAREFAS	 	 ==
 ===========================
 
-
 >> Modelo logico
 	> Rever modelo
 	> Script criaçao tabelas BD
@@ -23,16 +22,16 @@
 3. Validação do modelo com as transacções do utilizador - elaboração do correspondente mapa de transações.
 4. Elaboração e validação do esquema lógico da base de dados.
 5. Definição do tamanho inicial da bases de dados e análise do seu crescimento futuro.
-TO CHECK 6. Revisão do modelo lógico final com os futuros utilizadores do sistema de bases de dados.
+6. Revisão do modelo lógico final com os futuros utilizadores do sistema de bases de dados.
 
 
 > Projeto Físico
 
-DOING 1. Tradução do modelo lógico para um SGBD e consequente implementação.
-TO CHECK 2. Desenho da representação física - esquema físico.
-TO CHECK 3. Análise de transações.
-TO CHECK 4. Estimativa dos requisitos do espaço em disco agora com base no SGBD escolhido.
-TO CHECK 5. Definição das vistas dos utilizadores e regras de acesso.
+1. Tradução do modelo lógico para um SGBD e consequente implementação.
+2. Desenho da representação física - esquema físico.
+3. Análise de transações.
+4. Estimativa dos requisitos do espaço em disco agora com base no SGBD escolhido.
+5. Definição das vistas dos utilizadores e regras de acesso.
 
 
 > Relatório final
