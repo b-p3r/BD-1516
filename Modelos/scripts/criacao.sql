@@ -129,7 +129,7 @@ ENGINE = InnoDB;
 -- DROP TABLE IF EXISTS `Localizacao` ;
 
 CREATE TABLE IF NOT EXISTS `Localizacao` (
-  `idLocal` INT NOT NULL,
+  `idLocal` INT NOT NULL AUTO_INCREMENT,
   `Piso` INT NOT NULL,
   `Estante` INT NOT NULL,
   `Prateleira` INT NOT NULL,
