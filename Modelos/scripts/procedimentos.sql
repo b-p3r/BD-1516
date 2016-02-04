@@ -213,3 +213,74 @@ SELECT DISTINCT Loc.*
 END;\\
 delimiter ;
 
+
+delimiter \\
+CREATE FUNCTION dispExemplarToString(disponibilidade INT) RETURNS TEXT
+BEGIN
+
+DECLARE dispMsg VARCHAR(50);
+
+CASE disponibilidade
+	WHEN 0 THEN SET dispMsg='Nao Requisitavel';
+	WHEN 1 THEN SET dispMsg='Requisitado';
+	WHEN 2 THEN SET dispMsg='Disponivel';
+	ELSE
+		BEGIN
+		SET dispMsg='Disponibilidade Invalida';
+		END;
+END CASE;
+
+RETURN dispMsg;
+
+END;\\
+delimiter ;
+
+delimiter \\
+CREATE FUNCTION estadoRequisicaoToString(estado INT) RETURNS TEXT
+BEGIN
+
+DECLARE dispMsg VARCHAR(50);
+
+CASE estado
+	WHEN 0 THEN SET dispMsg='Activa';
+	WHEN 1 THEN SET dispMsg='Livro Entregue';
+	ELSE
+		BEGIN
+		SET dispMsg='Estado Invalido';
+		END;
+END CASE;
+
+RETURN dispMsg;
+
+END;\\
+delimiter ;
+
+delimiter \\
+CREATE FUNCTION estadoReservaToString(estado INT) RETURNS TEXT
+BEGIN
+
+DECLARE dispMsg VARCHAR(50);
+
+CASE estado
+	WHEN 0 THEN SET dispMsg='Efectuada';
+	WHEN 1 THEN SET dispMsg='Pronto a levantar';
+	WHEN 2 THEN SET dispMsg='Exemplar levantado';
+	WHEN 2 THEN SET dispMsg='Cancelada';
+  ELSE
+	BEGIN
+    SET dispMsg='Estado Invalido';
+    END;
+    
+END CASE;
+
+RETURN dispMsg;
+
+END;\\
+delimiter ;
+
+
+SET @dumb = 'xxx';
+SET @dumb= estadoReservaToString(1);
+SELECT @dumb;
+
+
