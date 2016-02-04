@@ -70,7 +70,7 @@ SELECT NrRenovacoes, NroMaxRenovacoes INTO v_numRenovacoes, v_numMaxRenovacoes
 IF v_numRenovacoes = v_numMaxRenovacoes THEN SET mustRollback = 1; END IF;
 
 UPDATE requisicao
-	SET NrRenovacoes = NroRenovacoes + 1, DataRequisicao = p_dataRequisicao, DataEntrega = p_dataEntrega
+	SET NrRenovacoes = NrRenovacoes + 1, DataRequisicao = p_dataRequisicao, DataEntrega = p_dataEntrega
 	WHERE idRequisicao = p_idRequisicao;
 
 IF Erro OR mustRollback = 1 THEN ROLLBACK; ELSE COMMIT; END IF;
@@ -85,7 +85,7 @@ CREATE PROCEDURE sp_entregar_exemplar_requisicao(IN p_idExemplar INT)
 BEGIN
 
 DECLARE mustRollback INT DEFAULT 0;
-DECLARE v_estadoExemplar INT;
+DECLARE v_DisponibilidadeExemplar INT;
 DECLARE v_idRequisicao INT;
 DECLARE Erro BOOL DEFAULT 0;
 DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET Erro = 1;
@@ -95,11 +95,11 @@ SET SQL_SAFE_UPDATES = 0;
 
 START TRANSACTION;
 
-SELECT E.Estado INTO v_estadoExemplar
+SELECT E.Disponibilidade INTO v_DisponibilidadeExemplar
 	FROM exemplar E
     WHERE idExemplar = p_idExemplar;
     
-IF v_estadoExemplar != 1 OR Erro THEN SET mustRollback = 1; END IF;
+IF v_DisponibilidadeExemplar != 1 OR Erro THEN SET mustRollback = 1; END IF;
 
 UPDATE exemplar
 	SET Disponibilidade = 2

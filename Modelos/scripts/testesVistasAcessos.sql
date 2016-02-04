@@ -6,15 +6,15 @@ DROP VIEW vwuserlivro;
 -- VER LIVROS
 CREATE VIEW vwUserLivro AS
 SELECT 
-	Titulo AS "Título", 
-    A.PrimeirosNomes AS "Nome Autor",
-    A.apelido AS "Apelido", 
-    C.Designacao AS "Coleção", 
-    ED.Designacao AS "Editora",
-    LE.Edicao AS "Número da Edição",
-    LE.Ano AS "Ano de Edição",
-    COUNT(E.livro) AS "Número de Exemplares",
-    CodBArras AS "Código de Barras", 
+	Titulo AS 'Título', 
+    A.PrimeirosNomes AS 'Nome Autor',
+    A.apelido AS 'Apelido', 
+    C.Designacao AS 'Coleção', 
+    ED.Designacao AS 'Editora',
+    LE.Edicao AS 'Número da Edição',
+    LE.Ano AS 'Ano de Edição',
+    COUNT(E.livro) AS 'Número de Exemplares',
+    CodBArras AS 'Código de Barras', 
     ISBN, 
     ISSN
 FROM livro AS L INNER JOIN coleccao AS C
@@ -47,8 +47,8 @@ DROP VIEW vwExemplares;
 CREATE VIEW vwExemplares AS
 
 SELECT 
-	L.Titulo AS "Título",
-	condicao AS "Condição", 
+	L.Titulo AS 'Título',
+	condicao AS 'Condição', 
     Loc.Piso, 
     Loc.Estante, 
     Loc.Prateleira
