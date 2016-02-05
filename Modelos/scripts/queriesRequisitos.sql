@@ -1,5 +1,7 @@
 SELECT * FROM bgum.exemplar;
 
+USE bgum;
+
 -- 1. Saber a designação de todas as coleções existentes.
 
 SELECT DISTINCT Designacao
@@ -60,27 +62,71 @@ SELECT *
     
 SELECT L.*
 	FROM `autor-escreve-livro` AL, Livro L 
-	WHERE Autor = 200 AND AL.Livro = L.idLivro;
+WHERE Autor = 200 AND AL.Livro = L.idLivro;
 
 -- 9. Saber os livros que uma editora publicou.
 
+SELECT *
+	FROM editora;
+    
+SELECT L.*
+	FROM `livro-publicado-editora` EL, Livro L 
+WHERE Editora = 5 AND EL.Livro = L.idLivro;
 
 -- 10. Saber os livros pertencentes a uma colecção.
 
+SELECT C.Designacao AS 'Colecção', L.*
+	FROM coleccao AS C INNER JOIN Livro as L
+		ON C.idColeccao = L.coleccao
+WHERE idColeccao = 5;
 
 -- 11. Saber os livros que têm uma dada CDU.
 
+SELECT *
+	FROM cdu;
+    
+SELECT L.*
+	FROM livro AS L INNER JOIN cdu AS C
+		ON L.idLivro = C.Livro
+ WHERE C.cdu = 846.7;
 
 -- 12. Fazer pesquisa por título do livro, que corresponde a obter uma lista de livros que têm no seu título o conjunto de palavras indicado no campo da pesquisa.
+
+SELECT *
+	FROM Livro;
+
+SELECT *
+	FROM livro
+WHERE Titulo LIKE '%the%';
 
 
 -- 13. Para um dado livro, saber o seu ISSN, ISBN, código de barras, título, editora, autor, edição, CDU, ano de publicação e número de exemplares.
 
+SELECT *
+	FROM livro;
+    
+SELECT *
+	FROM vwUserLivro
+WHERE idLivro = 92;
+
 
 -- 14. Saber a localização de livros de uma certa CDU.
-
-
+SELECT *, COUNT(Livro) AS qtt
+	FROM CDU
+    GROUP BY Livro
+    ORDER BY qtt DESC;
+    
+SELECT E.idExemplar, LC.*
+	FROM livro AS L INNER JOIN cdu AS C
+		ON L.idLivro = C.livro
+        INNER JOIN exemplar AS E
+			ON L.idLivro = E.livro
+            INNER JOIN localizacao AS LC
+				ON E.Localizacao = LC.idLocal
+WHERE CDU = '222.7'
+	
 -- 15. Para cada exemplar saber o estado de disponibilidade (reservado, requisitado ou não requisitável), o estado de conservação do exemplar bem como a sua localização na biblioteca (piso, estante e prateleira).
+
 -- 16. Reservar exemplares de um ou mais livros.
 -- 17. Saber data de reserva e seu estado (pendente, exemplar disponível para levantamento, reserva concluída ou cancelada).
 -- 18. Cancelar reserva de exemplar.
