@@ -69,7 +69,8 @@ WHERE Autor = 200 AND AL.Livro = L.idLivro;
 SELECT *
 	FROM editora;
     
-SELECT L.*
+
+SELECT L.idLivro, L.Titulo, EL.Edicao
 	FROM `livro-publicado-editora` EL, Livro L 
 WHERE Editora = 5 AND EL.Livro = L.idLivro;
 
@@ -104,18 +105,38 @@ WHERE Titulo LIKE '%the%';
 
 SELECT *
 	FROM livro;
-    
+
+-- TO MARIANA: A view do user nao tem a coluna idLivro
 SELECT *
 	FROM vwUserLivro
-WHERE idLivro = 92;
+	WHERE idLivro = 92;
+
+-- TO MARIANA: Talvez algo como isto?
+SELECT *
+	FROM vwUserLivro
+	WHERE Título = '101 Dalmatians';
+
+-- TO MARIANA: Ou fazer sem vista
+SELECT *
+	FROM livro
+	WHERE idLivro = 92;
 
 
 -- 14. Saber a localização de livros de uma certa CDU.
-SELECT *, COUNT(Livro) AS qtt
+
+-- TO MARIANA: Alterei esta querie para mostrar apenas livro e nº de cdus do livro.
+-- 				Penso que era o que pretendias. Mostrar a coluna da CDU nao fazia sentido.
+SELECT Livro, COUNT(Livro) AS NoCDUS
 	FROM CDU
     GROUP BY Livro
-    ORDER BY qtt DESC;
-    
+    ORDER BY NoCDUS DESC;
+
+-- Faz o inverso, para cada CDU diz o nº de livros
+SELECT CDU.CDU, COUNT(Livro) AS NoCDUS
+	FROM CDU
+    GROUP BY CDU.CDU
+    ORDER BY NoCDUS DESC;
+
 SELECT E.idExemplar, LC.*
 	FROM livro AS L INNER JOIN cdu AS C
 		ON L.idLivro = C.livro
@@ -123,10 +144,20 @@ SELECT E.idExemplar, LC.*
 			ON L.idLivro = E.livro
             INNER JOIN localizacao AS LC
 				ON E.Localizacao = LC.idLocal
-WHERE CDU = '222.7';
+	WHERE CDU = '222.7';
+
+-- TO MARIANA: Versão alternativa, para cada livro mostra as respectivas localizações.
+-- 				Aproveitei para escolher uma CDU que tem 5 livros.
+SELECT DISTINCT L.idLivro, LC.*
+	FROM livro AS L INNER JOIN cdu AS C
+		ON L.idLivro = C.livro
+        INNER JOIN exemplar AS E
+			ON L.idLivro = E.livro
+            INNER JOIN localizacao AS LC
+				ON E.Localizacao = LC.idLocal
+	WHERE CDU = '764.5';
 	
 -- 15. Para cada exemplar saber o estado de disponibilidade (reservado, requisitado ou não requisitável), o estado de conservação do exemplar bem como a sua localização na biblioteca (piso, estante e prateleira).
-
 
 SELECT E.idExemplar,
 	   dispExemplarToString(E.disponibilidade) AS Disponibilidade,
@@ -148,11 +179,15 @@ SELECT L.Titulo,
     dispExemplarToString(E.Disponibilidade) AS Disponibilidade
 	FROM Livro AS L INNER JOIN Exemplar AS E
 		ON L.idLivro = E.livro;
-	
+        
+SELECT *
+	from exemplar E
+    where idExemplar = 8;
+
 CALL sp_efectuar_reserva(8, 516, CURDATE());
 
 SELECT 
-	estadoReservaToString(estado) AS Estado,
+	estadoReservaToString(estado) AS 'Estado Reserva',
     Exemplar,
     Utilizador,
     DataReserva
@@ -165,7 +200,7 @@ SELECT *
 	FROM `exemplar-reservado-utilizador`;
     
 SELECT 
-	estadoReservaToString(Estado),
+	estadoReservaToString(Estado) AS 'Estado Reserva',
     Exemplar,
     Utilizador,
     DataReserva
