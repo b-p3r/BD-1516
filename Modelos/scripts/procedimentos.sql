@@ -279,8 +279,4 @@ END;\\
 delimiter ;
 
 
-SET @dumb = 'xxx';
-SET @dumb= estadoReservaToString(1);
-SELECT @dumb;
-
 

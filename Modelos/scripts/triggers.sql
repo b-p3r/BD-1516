@@ -78,7 +78,7 @@ END;\\
 delimiter ;
 
 delimiter \\
-CREATE TRIGGER tr_verificaTipoUser BEFORE INSERT ON `exemplar-reservado-utilizador`
+CREATE TRIGGER tr_verificaEstadoReserva BEFORE INSERT ON `exemplar-reservado-utilizador`
 FOR EACH ROW
 BEGIN
 
