@@ -129,7 +129,7 @@ WHERE CDU = '222.7';
 
 
 SELECT E.idExemplar,
-	   REPLACE(REPLACE(REPLACE(E.Disponibilidade,1,'Requisitado'),2,'Disponível'),0,'Não Requisitável') AS Disponibilidade,
+	   dispExemplarToString(E.disponibilidade) AS Disponibilidade,
        L.Piso,
        L.Estante,
        L.Prateleira       
@@ -145,14 +145,14 @@ SELECT dispExemplarToString(1) AS Disponibilidade;
 
 SELECT L.Titulo,
 	E.idExemplar, 
-    REPLACE(REPLACE(REPLACE(E.Disponibilidade,1,'Requisitado'),2,'Disponível'),0,'Não Requisitável') AS Disponibilidade
+    dispExemplarToString(E.Disponibilidade) AS Disponibilidade
 	FROM Livro AS L INNER JOIN Exemplar AS E
 		ON L.idLivro = E.livro;
 	
 CALL sp_efectuar_reserva(8, 516, CURDATE());
 
 SELECT 
-	REPLACE(REPLACE(REPLACE(REPLACE(Estado,0,'Reservado'),1,'Pronto a levantar'),2,'Exemplar levantado'),3,'Reserva cancelada') AS Estado,
+	estadoReservaToString(estado) AS Estado,
     Exemplar,
     Utilizador,
     DataReserva
@@ -160,12 +160,134 @@ SELECT
 WHERE exemplar = 8 AND Utilizador = 516;
 
 -- 17. Saber data de reserva e seu estado (pendente, exemplar disponível para levantamento, reserva concluída ou cancelada).
+
+SELECT *
+	FROM `exemplar-reservado-utilizador`;
+    
+SELECT 
+	estadoReservaToString(Estado),
+    Exemplar,
+    Utilizador,
+    DataReserva
+	FROM `exemplar-reservado-utilizador` 
+WHERE exemplar = 303 AND Utilizador = 303;
+
 -- 18. Cancelar reserva de exemplar.
+    
+SELECT *
+	FROM `exemplar-reservado-utilizador`;
+    
+CALL sp_cancelar_reserva(8,516,'2016-02-06');
+
+SELECT *
+	FROM `exemplar-reservado-utilizador`
+WHERE exemplar = 8 AND utilizador = 516;
+    
 -- 19. Efetuar requisição de um exemplar.
+
+SELECT *
+	FROM exemplar
+WHERE disponibilidade = 2;
+
+CALL sp_efectuar_requisicao(312,600,CURDATE(),CURDATE() + INTERVAL 2 WEEK,6);
+
+SELECT *
+	FROM requisicao
+WHERE utilizador = 600 AND exemplar = 312;
+
 -- 20. Para uma requisição, saber o seu estado (ativa ou não), em que data foi realizada, em que data deverá ser entregue o exemplar, qual o número de renovações efetuado e qual o número máximo de renovações permitidas em vigor na data da reserva.
+
+SELECT idRequisicao,
+	   estadoRequisicaoToString(Estado) AS Estado,
+       DataRequisicao,
+       DataEntrega,
+       NroMaxRenovacoes,
+       NrRenovacoes
+       FROM requisicao;
+       
 -- 21. Renovar uma requisição, não excedendo o número máximo de renovações permitido.
+
+SELECT *
+	FROM Requisicao;
+    
+CALL sp_renovar_requisicao(2,'2015-01-03',CURDATE() + INTERVAL 2 WEEK);
+
+SELECT *
+	FROM Requisicao
+WHERE idRequisicao = 2;
+
 -- 22. Concluir requisição, que corresponde à devolução do exemplar requisitado.
+
+SELECT *
+	FROM exemplar
+WHERE disponibilidade = 0;
+
+SELECT *
+	FROM requisicao
+WHERE Exemplar = 2;
+
+CALL sp_entregar_exemplar_requisicao(2);
+
+SELECT *
+	FROM Requisicao
+WHERE idRequisicao = 2;
+
 -- 23. Gerar estatísticas de número de renovações médio e saber quantos utilizadores usam o número máximo de requisições permitidas.
+
+-- SELECT FLOOR(AVG(NrRenovacoes)) AS 'Número Médio de Renovações'
+	-- FROM requisicao;
+    
+SELECT (AVG(NrRenovacoes)) AS 'Número Médio de Renovações'
+	FROM requisicao;
+    
+SELECT COUNT(NroMaxRenovacoes) AS 'Utilizadores que renovaram até ao limite permitido'
+	FROM requisicao
+    WHERE NrRenovacoes = 6;
+    
 -- 24. Registar utilizadores internos ou externos como requisitantes.
+
+	-- Utilizador externo
+    
+SELECT *
+	FROM utilizador
+WHERE tipo = 'LE';
+
+SELECT *
+	FROM exemplar
+WHERE disponibilidade = 2;
+
+CALL sp_efectuar_requisicao(1401,800,CURDATE(), CURDATE() + INTERVAL 2 WEEK,6);
+
+SELECT * 
+	FROM requisicao
+WHERE exemplar = 1401 AND utilizador = 800;
+
+	-- Utilizador Externo
+SELECT *
+	FROM utilizador;
+
+CALL sp_efectuar_requisicao(1094,762,CURDATE(), CURDATE() + INTERVAL 2 WEEK,6);
+
+SELECT * 
+	FROM requisicao
+WHERE exemplar = 1094 AND utilizador = 762;
+
 -- 25. Para um dado utilizador, saber o seu tipo, nome, email, CC, número mecanográfico e contacto alternativo.
+
+SELECT *
+	FROM Utilizador;
+
 -- 26. Saber os utilizadores que reservaram/requisitaram determinado exemplar.
+
+SELECT *
+	FROM exemplar;
+    
+SELECT *
+	FROM `exemplar-reservado-utilizador`;
+    
+SELECT EU.DataReserva, U.*
+	FROM `exemplar-reservado-utilizador` EU INNER JOIN utilizador AS U	
+		ON EU.utilizador = U.idUser
+WHERE EU.exemplar = 8;
+    
+
