@@ -123,11 +123,42 @@ SELECT E.idExemplar, LC.*
 			ON L.idLivro = E.livro
             INNER JOIN localizacao AS LC
 				ON E.Localizacao = LC.idLocal
-WHERE CDU = '222.7'
+WHERE CDU = '222.7';
 	
 -- 15. Para cada exemplar saber o estado de disponibilidade (reservado, requisitado ou não requisitável), o estado de conservação do exemplar bem como a sua localização na biblioteca (piso, estante e prateleira).
 
+
+SELECT E.idExemplar,
+	   REPLACE(REPLACE(REPLACE(E.Disponibilidade,1,'Requisitado'),2,'Disponível'),0,'Não Requisitável') AS Disponibilidade,
+       L.Piso,
+       L.Estante,
+       L.Prateleira       
+	FROM livro AS LI INNER JOIN exemplar AS E
+		ON LI.idLivro = E.livro
+        INNER JOIN localizacao AS L
+			ON L.idLocal = E.localizacao            
+WHERE LI.idLivro = 1;
+
+SELECT dispExemplarToString(1) AS Disponibilidade;
+
 -- 16. Reservar exemplares de um ou mais livros.
+
+SELECT L.Titulo,
+	E.idExemplar, 
+    REPLACE(REPLACE(REPLACE(E.Disponibilidade,1,'Requisitado'),2,'Disponível'),0,'Não Requisitável') AS Disponibilidade
+	FROM Livro AS L INNER JOIN Exemplar AS E
+		ON L.idLivro = E.livro;
+	
+CALL sp_efectuar_reserva(8, 516, CURDATE());
+
+SELECT 
+	REPLACE(REPLACE(REPLACE(REPLACE(Estado,0,'Reservado'),1,'Pronto a levantar'),2,'Exemplar levantado'),3,'Reserva cancelada') AS Estado,
+    Exemplar,
+    Utilizador,
+    DataReserva
+	FROM `exemplar-reservado-utilizador` 
+WHERE exemplar = 8 AND Utilizador = 516;
+
 -- 17. Saber data de reserva e seu estado (pendente, exemplar disponível para levantamento, reserva concluída ou cancelada).
 -- 18. Cancelar reserva de exemplar.
 -- 19. Efetuar requisição de um exemplar.
