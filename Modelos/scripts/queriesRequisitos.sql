@@ -19,7 +19,7 @@ SELECT C.Designacao 'Coleccao',  COUNT(idColeccao) 'Nº Exemplares'
 SELECT DISTINCT PrimeirosNomes, Apelido
 	FROM Autor;
 
-SELECT DISTINCT CONCAT(PrimeirosNomes,Apelido) AS 'Nome Autor'
+SELECT DISTINCT CONCAT(PrimeirosNomes,' ',Apelido) AS 'Nome Autor'
 	FROM Autor;
 
 -- 4. Saber o apelido e primeiros nomes de um autor.
