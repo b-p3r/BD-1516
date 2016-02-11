@@ -106,17 +106,11 @@ WHERE Titulo LIKE '%the%';
 SELECT *
 	FROM livro;
 
--- TO MARIANA: A view do user nao tem a coluna idLivro
-SELECT *
-	FROM vwUserLivro
-	WHERE idLivro = 92;
-
--- TO MARIANA: Talvez algo como isto?
 SELECT *
 	FROM vwUserLivro
 	WHERE Título = '101 Dalmatians';
 
--- TO MARIANA: Ou fazer sem vista
+-- alternativa:
 SELECT *
 	FROM livro
 	WHERE idLivro = 92;
@@ -124,8 +118,6 @@ SELECT *
 
 -- 14. Saber a localização de livros de uma certa CDU.
 
--- TO MARIANA: Alterei esta querie para mostrar apenas livro e nº de cdus do livro.
--- 				Penso que era o que pretendias. Mostrar a coluna da CDU nao fazia sentido.
 SELECT Livro, COUNT(Livro) AS NoCDUS
 	FROM CDU
     GROUP BY Livro
@@ -137,17 +129,6 @@ SELECT CDU.CDU, COUNT(Livro) AS NoCDUS
     GROUP BY CDU.CDU
     ORDER BY NoCDUS DESC;
 
-SELECT E.idExemplar, LC.*
-	FROM livro AS L INNER JOIN cdu AS C
-		ON L.idLivro = C.livro
-        INNER JOIN exemplar AS E
-			ON L.idLivro = E.livro
-            INNER JOIN localizacao AS LC
-				ON E.Localizacao = LC.idLocal
-	WHERE CDU = '222.7';
-
--- TO MARIANA: Versão alternativa, para cada livro mostra as respectivas localizações.
--- 				Aproveitei para escolher uma CDU que tem 5 livros.
 SELECT DISTINCT L.idLivro, LC.*
 	FROM livro AS L INNER JOIN cdu AS C
 		ON L.idLivro = C.livro
