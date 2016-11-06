@@ -1,5 +1,20 @@
-# Documentos temporarios word
+# Ficheiros temporarios
 
 ~*.doc
 ~*.docx
 *.tmp
+
+#Atalhos
+
+*.lnk
+
+# Ficheiros backup
+
+*\*.bak
+*.bak
+
+# Ficheiros intelij
+
+*.xml
+*.iml
+Modelos/povoamento/~$criacaoTabelas.xlsx
